@@ -46,9 +46,5 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addWatch() {
-        var title = input.text.toString();
-        var watch = Watch(title,"","","","","");
-        arrayList.add(watch);
-        adapter.notifyDataSetChanged();
     }
 }
