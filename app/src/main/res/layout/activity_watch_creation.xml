@@ -26,7 +26,6 @@
         android:id="@+id/linearLayout"
         android:layout_width="353dp"
         android:layout_height="383dp"
-        android:dividerPadding="@dimen/material_emphasis_medium"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package kaizen.watchmanager
 
 import Watch
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -41,6 +42,18 @@ class WatchCreationActivity : AppCompatActivity() {
         theoreticAccuracyI = findViewById(R.id.taInput);
 
         statusText.visibility = View.INVISIBLE;
+
+        addWatch.setOnClickListener{
+            var w = createWatch();
+            if(w != null){
+
+                val result = Intent().apply {
+                    putExtra("WATCH", w)
+                }
+                setResult(RESULT_OK, result); // Send the ok result with the key-value
+                finish(); // Finish this activity
+            }
+        }
     }
 
     fun createWatch(): Watch? {

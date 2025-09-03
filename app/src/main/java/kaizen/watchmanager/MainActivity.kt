@@ -1,12 +1,14 @@
 package kaizen.watchmanager
 
 import Watch
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var input: TextInputEditText;
     var arrayList = ArrayList<Watch>();
     lateinit var adapter: ArrayAdapter<Watch>;
+    lateinit var watch: Watch;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,5 +49,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addWatch() {
+        val intent = Intent(this, WatchCreationActivity::class.java)
+        formLauncher.launch(intent)
+    }
+
+
+
+    private val formLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val data = result.data
+            watch = data?.getParcelableExtra("WATCH")!!
+            arrayList.add(watch);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
