@@ -5,7 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WatchCreationActivity">
+    tools:context=".WatchCreationActivity"
+    tools:layout_editor_absoluteX="10dp"
+    tools:layout_editor_absoluteY="17dp">
 
     <TextView
         android:id="@+id/textView"
@@ -22,15 +24,14 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="363dp"
-        android:layout_height="316dp"
-        android:dividerPadding="@dimen/material_emphasis_medium"
+        android:layout_width="353dp"
+        android:layout_height="383dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/brandInput"
@@ -52,6 +53,13 @@
             android:layout_height="39dp"
             android:layout_marginBottom="30dp"
             android:hint="Movement Type" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Theoretic accuracy" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/caliberInput"
@@ -86,7 +94,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        tools:layout_editor_absoluteX="295dp"
-        tools:layout_editor_absoluteY="637dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
+
+    <TextView
+        android:id="@+id/statusTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Error. You must especify the brand and model."
+        android:textColor="#E53935"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="177dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
