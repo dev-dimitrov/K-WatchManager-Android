@@ -23,6 +23,7 @@ class WatchCreationActivity : AppCompatActivity() {
     lateinit var moreInfoI: TextInputEditText;
     lateinit var addWatch: Button;
     lateinit var statusText: TextView;
+    lateinit var cancel: Button;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,6 +41,7 @@ class WatchCreationActivity : AppCompatActivity() {
         addWatch = findViewById(R.id.addWatchButton);
         statusText = findViewById(R.id.statusTxt);
         theoreticAccuracyI = findViewById(R.id.taInput);
+        cancel = findViewById(R.id.cancelButton);
 
         statusText.visibility = View.INVISIBLE;
 
@@ -53,6 +55,10 @@ class WatchCreationActivity : AppCompatActivity() {
                 setResult(RESULT_OK, result); // Send the ok result with the key-value
                 finish(); // Finish this activity
             }
+        }
+
+        cancel.setOnClickListener{
+            finish();
         }
     }
 
