@@ -43,13 +43,16 @@ class MainActivity : AppCompatActivity() {
             addWatch();
         });
 
-        list.setOnItemClickListener{parent, view, id, position ->
+        list.setOnItemClickListener{parent, view, position, id ->
             var selectedWatch = arrayList.get(position.toInt());
+            var intent = Intent(this,WatchScreenActivity::class.java);
+            intent.putExtra("WATCH",selectedWatch);
+            startActivity(intent);
         }
     }
 
     fun addWatch() {
-        val intent = Intent(this, WatchCreationActivity::class.java)
+        var intent = Intent(this, WatchCreationActivity::class.java)
         formLauncher.launch(intent)
     }
 

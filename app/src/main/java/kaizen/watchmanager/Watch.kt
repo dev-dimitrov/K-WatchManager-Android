@@ -10,15 +10,15 @@ import java.util.TreeMap
 
 class Watch(
     b: String,
-    private var model: String,
+    var model: String,
     ty: String,
-    private var caliber: String,
-    private var theoreticAccuracy: String,
-    private var moreInfo: String
+    var caliber: String,
+    var theoreticAccuracy: String,
+    var moreInfo: String
 ) :
     Parcelable {
-    private var brand: String
-    private var type: String
+    var brand: String
+    var type: String
     var lastAdjust: LocalDateTime? = null
     var log: TreeMap<LocalDateTime, String?>
     var newLastAdjust: LocalDateTime? = null
@@ -44,13 +44,13 @@ class Watch(
         log = TreeMap()
     }
 
-    fun setBrand(b: String) {
-        brand = b.uppercase(Locale.getDefault())
-    }
+//    fun setBrand(b: String) {
+//        brand = b.uppercase(Locale.getDefault())
+//    }
 
-    fun setModel(m: String) {
-        model = m.uppercase(Locale.getDefault())
-    }
+//    fun setModel(m: String) {
+//        model = m.uppercase(Locale.getDefault())
+//    }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
