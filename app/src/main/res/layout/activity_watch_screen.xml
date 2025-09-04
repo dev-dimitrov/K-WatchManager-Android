@@ -15,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:rotationY="34"
         android:text="BRAND"
         android:textColor="@color/white_night"
         android:textSize="34sp"
@@ -31,7 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:rotationY="34"
         android:text="model"
         android:textColor="@color/white_night"
         android:textSize="24sp"
@@ -61,6 +59,7 @@
         android:id="@+id/checkButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00E9E9E9"
         android:backgroundTint="#00120E0E"
         android:text="Check accuracy"
         android:textColor="@color/white_night"
@@ -74,7 +73,7 @@
         app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/AdjustButton"
+        android:id="@+id/adjustButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00120E0E"
