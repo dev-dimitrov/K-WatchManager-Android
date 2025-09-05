@@ -8,26 +8,32 @@ import java.util.Locale
 import java.util.TreeMap
 
 
-class Watch(
+class Watch( // constructor parameters
     b: String,
-    var model: String,
+    m: String,
     ty: String,
-    var caliber: String,
-    var theoreticAccuracy: String,
-    var moreInfo: String
+    c: String,
+    t: String,
+    mi: String
 ) :
-    Serializable {
+    Serializable { // actual attributes
     var brand: String
-    var type: String
-    var lastAdjust: LocalDateTime? = null
-    var log: TreeMap<LocalDateTime, String?>
-    var newLastAdjust: LocalDateTime? = null
-    var newLog: TreeMap<LocalDateTime, String>? = null
+    var model: String;
+    var type: String;
+    var caliber: String;
+    var theoreticAccuracy: String;
+    var moreInfo: String;
+    var lastAdjust: LocalDateTime? = null;
+    var log: TreeMap<LocalDateTime, String?>;
+    var na = "Not Specified";
 
     init {
         brand = b.uppercase(Locale.getDefault())
+        model = if(m.isEmpty()) na else m.capitalize();
         type = ty.uppercase(Locale.getDefault())
-
+        caliber = if(c.isEmpty()) na else c;
+        theoreticAccuracy = if(t.isEmpty()) na else t;
+        moreInfo = if(mi.isEmpty()) na else mi;
         log = TreeMap()
     }
 

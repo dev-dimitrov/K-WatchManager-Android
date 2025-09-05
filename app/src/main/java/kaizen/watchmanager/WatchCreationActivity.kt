@@ -70,7 +70,6 @@ class WatchCreationActivity : AppCompatActivity() {
         var caliber = caliberI.text.toString();
         var moreInfo = moreInfoI.text.toString();
         var theoreticAccuracy = theoreticAccuracyI.text.toString();
-        var na = "Not specified";
 
         if(brand.isEmpty() || model.isEmpty()){
             showStatus("Error. You must specify the brand and model", Color.RED);
@@ -78,13 +77,7 @@ class WatchCreationActivity : AppCompatActivity() {
         }
 
         statusText.visibility = View.INVISIBLE;
-
-        type = if (type.isEmpty()) na else type;
-        caliber = if (caliber.isEmpty()) na else caliber;
-        moreInfo = if (moreInfo.isEmpty()) na else moreInfo;
-        theoreticAccuracy = if (theoreticAccuracy.isEmpty()) na else theoreticAccuracy;
-        w = Watch(brand,model,type,caliber,theoreticAccuracy,moreInfo);
-
+        w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
         showStatus("Watch created successfully!",Color.GREEN);
         return w;
     }
