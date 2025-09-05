@@ -4,6 +4,7 @@ import Watch
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.transition.Visibility
 import com.google.android.material.textfield.TextInputEditText
+import java.io.Serializable
 
 class WatchCreationActivity : AppCompatActivity() {
     lateinit var brandI: TextInputEditText;
@@ -48,12 +50,10 @@ class WatchCreationActivity : AppCompatActivity() {
         addWatch.setOnClickListener{
             var w = createWatch();
             if(w != null){
-
-                val result = Intent().apply {
-                    putExtra("WATCH", w)
-                }
-                setResult(RESULT_OK, result); // Send the ok result with the key-value
-                finish(); // Finish this activity
+                var intent = Intent(); // create a new intent
+                intent.putExtra("WATCH",w as Serializable); // assign the new watch created to the key "WATCH"
+                setResult(RESULT_OK, intent); // Set the result with the intent
+                finish(); // Exit this activity
             }
         }
 

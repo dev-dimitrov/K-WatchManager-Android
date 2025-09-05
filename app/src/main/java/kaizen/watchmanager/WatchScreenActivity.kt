@@ -30,7 +30,8 @@ class WatchScreenActivity : AppCompatActivity() {
         }
         asignObjectId();
         var selectedWatch: Watch;
-        selectedWatch = intent.getParcelableExtra("WATCH", Watch::class.java)!!;
+
+        selectedWatch = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
         showWatchInfo(selectedWatch);
     }
 
@@ -48,4 +49,5 @@ class WatchScreenActivity : AppCompatActivity() {
         modelTxt.text = w.model;
         watchAtt.text = "Movement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo;
     }
+
 }
