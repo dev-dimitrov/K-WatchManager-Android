@@ -8,11 +8,16 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import java.io.FileInputStream
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.Serializable
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -46,26 +51,25 @@ class MainActivity : AppCompatActivity() {
         list.setOnItemClickListener{parent, view, position, id ->
             var selectedWatch = arrayList.get(position.toInt());
             var intent = Intent(this,WatchScreenActivity::class.java);
-            intent.putExtra("WATCH",selectedWatch);
-            startActivity(intent);
+            intent.putExtra("WATCH", selectedWatch as Serializable);
+            launcher.launch(intent);
         }
     }
 
     fun addWatch() {
         var intent = Intent(this, WatchCreationActivity::class.java)
-        formLauncher.launch(intent)
+        launcher.launch(intent);
     }
 
 
-
-    private val formLauncher = registerForActivityResult(
+    // This will execute as a callback, when an activity sends back a object
+    private val launcher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val data = result.data
-            watch = data?.getParcelableExtra("WATCH")!!
-            arrayList.add(watch);
-            adapter.notifyDataSetChanged();
+            val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
+            arrayList.add(newWatch); // adding the brand new watch
+            adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
         }
     }
 }
