@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        wipeData();
         loadWatches();
         addBtn = findViewById(R.id.addButton);
         list = findViewById(R.id.listView);
@@ -91,6 +92,20 @@ class MainActivity : AppCompatActivity() {
         var o = ObjectOutputStream(FileOutputStream(f));
         try{
             o.writeObject(arrayList);
+        }
+        catch(ex: IOException){
+            ex.printStackTrace();
+        }
+        finally {
+            o.close();
+        }
+    }
+
+    fun wipeData(){
+        var f = File(this.filesDir, "watches.bin");
+        var o = ObjectOutputStream(FileOutputStream(f));
+        try{
+            o.writeObject(ArrayList<Watch>());
         }
         catch(ex: IOException){
             ex.printStackTrace();
