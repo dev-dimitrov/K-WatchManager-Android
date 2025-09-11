@@ -2,8 +2,10 @@ package kaizen.watchmanager
 
 import Watch
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +13,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.transition.Visibility
+import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchScreenActivity : AppCompatActivity() {
@@ -19,6 +23,8 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var adjustBtn: Button;
     lateinit var accBtn: Button;
     lateinit var watchAtt: TextView;
+    lateinit var w: Watch;
+    lateinit var statusTxt: TextView;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,10 +35,12 @@ class WatchScreenActivity : AppCompatActivity() {
             insets
         }
         asignObjectId();
-        var selectedWatch: Watch;
-
-        selectedWatch = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
-        showWatchInfo(selectedWatch);
+        statusTxt.visibility = View.VISIBLE;
+        w = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
+        drawWatchInfo();
+        adjustBtn.setOnClickListener{
+            adjustWatch();
+        }
     }
 
     fun asignObjectId(){
@@ -42,12 +50,21 @@ class WatchScreenActivity : AppCompatActivity() {
         brandTxt = findViewById(R.id.brandText);
         accBtn = findViewById(R.id.checkButton);
         watchAtt = findViewById(R.id.attText);
+        statusTxt = findViewById(R.id.statusText);
     }
 
-    fun showWatchInfo(w: Watch){
+    fun drawWatchInfo(){
         brandTxt.text = w.brand;
         modelTxt.text = w.model;
-        watchAtt.text = "Movement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo;
+        watchAtt.text = "Last Adjustment: "+w.lastAdjust+"\nMovement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo;
+    }
+
+
+    fun adjustWatch(){
+        w.lastAdjust = LocalDateTime.now();
+        statusTxt.setTextColor(Color.GREEN);
+        statusTxt.text = "Successfully adjusted!!";
+        drawWatchInfo();
     }
 
 }
