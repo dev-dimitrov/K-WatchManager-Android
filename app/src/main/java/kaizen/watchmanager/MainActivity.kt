@@ -2,11 +2,13 @@ package kaizen.watchmanager
 
 import Watch
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,10 +29,10 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity() {
     lateinit var addBtn: ImageButton;
     lateinit var list: ListView;
-    lateinit var input: TextInputEditText;
     var arrayList = ArrayList<Watch>();
     lateinit var adapter: ArrayAdapter<Watch>;
     lateinit var watch: Watch;
+    lateinit var statusTxt: TextView;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,15 +42,14 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        wipeData();
-        loadWatches();
         addBtn = findViewById(R.id.addButton);
         list = findViewById(R.id.listView);
         adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
-
+        statusTxt = findViewById(R.id.mainStatusText);
+        statusTxt.visibility = View.INVISIBLE;
         list.adapter = adapter;
-
-
+        loadWatches();
+        wipeData();
         addBtn.setOnClickListener({
             addWatch();
         });
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             var o = ObjectInputStream(FileInputStream(f));
             try{
                 arrayList = o.readObject() as ArrayList<Watch>;
+                showStatus("Loaded successfully", Color.GREEN);
             }
             catch(ex: IOException){
 
@@ -106,6 +108,7 @@ class MainActivity : AppCompatActivity() {
         var o = ObjectOutputStream(FileOutputStream(f));
         try{
             o.writeObject(ArrayList<Watch>());
+            showStatus("Data wiped, remove method to keep data", Color.GREEN);
         }
         catch(ex: IOException){
             ex.printStackTrace();
@@ -126,5 +129,11 @@ class MainActivity : AppCompatActivity() {
             saveWatches();
             adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
         }
+    }
+
+    public fun showStatus(msg: String, color: Int){
+        statusTxt.setTextColor(color);
+        statusTxt.text = msg;
+        statusTxt.visibility = View.VISIBLE;
     }
 }
