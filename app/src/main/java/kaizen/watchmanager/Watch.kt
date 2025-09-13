@@ -42,6 +42,12 @@ class Watch( // constructor parameters
         return brand+" "+model;
     }
 
+
+    override fun equals(other: Any?): Boolean {
+        var o = other as Watch;
+        return this.brand.equals(o.brand) && this.model.equals(o.model);
+    }
+
     companion object{
         @RequiresApi(Build.VERSION_CODES.O)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:s")
