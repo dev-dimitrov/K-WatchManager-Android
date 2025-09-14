@@ -2,18 +2,21 @@ package kaizen.watchmanager
 
 import Watch
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.transition.Visibility
+import java.io.Serializable
 import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -42,7 +45,12 @@ class WatchScreenActivity : AppCompatActivity() {
             adjustWatch();
         }
 
-
+        onBackPressedDispatcher.addCallback (this){
+            var i = Intent();
+            i.putExtra("WATCH", w as Serializable);
+            setResult(RESULT_OK, i);
+            finish();
+        }
     }
 
     fun asignObjectId(){
