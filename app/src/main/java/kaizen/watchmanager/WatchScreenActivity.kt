@@ -41,6 +41,8 @@ class WatchScreenActivity : AppCompatActivity() {
         adjustBtn.setOnClickListener{
             adjustWatch();
         }
+
+
     }
 
     fun asignObjectId(){

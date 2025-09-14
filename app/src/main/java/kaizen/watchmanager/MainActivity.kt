@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter: ArrayAdapter<Watch>;
     lateinit var watch: Watch;
     lateinit var statusTxt: TextView;
+    var pressedWatch = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,19 +43,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        statusTxt = findViewById(R.id.mainStatusText);
+        statusTxt.visibility = View.INVISIBLE;
+        wipeData();
+        loadWatches();
+
         addBtn = findViewById(R.id.addButton);
         list = findViewById(R.id.listView);
         adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
-        statusTxt = findViewById(R.id.mainStatusText);
-        statusTxt.visibility = View.INVISIBLE;
+
+
         list.adapter = adapter;
-        loadWatches();
-        wipeData();
+
         addBtn.setOnClickListener({
             addWatch();
         });
 
         list.setOnItemClickListener{parent, view, position, id ->
+            pressedWatch = true;
             var selectedWatch = arrayList.get(position.toInt());
             var intent = Intent(this,WatchScreenActivity::class.java);
             intent.putExtra("WATCH", selectedWatch as Serializable);
@@ -74,7 +80,6 @@ class MainActivity : AppCompatActivity() {
             var o = ObjectInputStream(FileInputStream(f));
             try{
                 arrayList = o.readObject() as ArrayList<Watch>;
-                showStatus("Loaded successfully", Color.GREEN);
             }
             catch(ex: IOException){
 
@@ -125,7 +130,12 @@ class MainActivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
-            arrayList.add(newWatch); // adding the brand new watch
+            if(pressedWatch){
+                arrayList.remove(newWatch);
+                pressedWatch = false;
+            }
+
+            arrayList.add(newWatch); // adding the brand new watch or update the one with the new last adjustment
             saveWatches();
             adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
         }
