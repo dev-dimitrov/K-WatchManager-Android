@@ -16,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.transition.Visibility
+import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeParseException
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchScreenActivity : AppCompatActivity() {
@@ -28,6 +31,7 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var watchAtt: TextView;
     lateinit var w: Watch;
     lateinit var statusTxt: TextView;
+    lateinit var input: TextInputEditText;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -61,6 +65,7 @@ class WatchScreenActivity : AppCompatActivity() {
         accBtn = findViewById(R.id.checkButton);
         watchAtt = findViewById(R.id.attText);
         statusTxt = findViewById(R.id.statusText);
+        input = findViewById(R.id.inputText);
     }
 
     fun drawWatchInfo(){
@@ -71,9 +76,27 @@ class WatchScreenActivity : AppCompatActivity() {
 
 
     fun adjustWatch(){
-        w.lastAdjust = LocalDateTime.now().format(Watch.formatter);
-        statusTxt.setTextColor(Color.GREEN);
-        statusTxt.text = "Successfully adjusted!!";
+        var msg = "";
+        if(input.text.toString().isBlank()){
+            w.lastAdjust = LocalDateTime.now().format(Watch.formatter);
+            statusTxt.setTextColor(Color.GREEN);
+            msg = "Successfully adjusted!!";
+        }
+        else{
+            var strDate = input.text.toString();
+            try{
+                var dateTime = LocalDateTime.parse(strDate, Watch.formatter);
+                w.lastAdjust = strDate;
+                statusTxt.setTextColor(Color.GREEN);
+                msg = "Successfully adjusted!!";
+            }
+            catch(ex: DateTimeParseException){
+                statusTxt.setTextColor(Color.RED);
+                msg = "Error while parsing the date...";
+            }
+        }
+
+        statusTxt.text = msg;
         statusTxt.visibility = View.VISIBLE;
 
         drawWatchInfo();
