@@ -74,6 +74,8 @@ class WatchScreenActivity : AppCompatActivity() {
         w.lastAdjust = LocalDateTime.now().format(Watch.formatter);
         statusTxt.setTextColor(Color.GREEN);
         statusTxt.text = "Successfully adjusted!!";
+        statusTxt.visibility = View.VISIBLE;
+
         drawWatchInfo();
     }
 
