@@ -50,6 +50,6 @@ class Watch( // constructor parameters
 
     companion object{
         @RequiresApi(Build.VERSION_CODES.O)
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:s")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     }
 }
