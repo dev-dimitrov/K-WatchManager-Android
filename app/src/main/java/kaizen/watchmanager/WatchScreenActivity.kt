@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -32,6 +34,7 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var w: Watch;
     lateinit var statusTxt: TextView;
     lateinit var input: TextInputEditText;
+    lateinit var web: WebView;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,7 +45,7 @@ class WatchScreenActivity : AppCompatActivity() {
             insets
         }
         asignObjectId();
-        statusTxt.visibility = View.VISIBLE;
+        statusTxt.visibility = View.INVISIBLE;
         w = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
         drawWatchInfo();
         adjustBtn.setOnClickListener{
@@ -55,6 +58,9 @@ class WatchScreenActivity : AppCompatActivity() {
             setResult(RESULT_OK, i);
             finish();
         }
+
+
+       setupWebView("https://www.time.is");
     }
 
     fun asignObjectId(){
@@ -66,6 +72,7 @@ class WatchScreenActivity : AppCompatActivity() {
         watchAtt = findViewById(R.id.attText);
         statusTxt = findViewById(R.id.statusText);
         input = findViewById(R.id.inputText);
+        web = findViewById(R.id.webv);
     }
 
     fun drawWatchInfo(){
@@ -102,4 +109,10 @@ class WatchScreenActivity : AppCompatActivity() {
         drawWatchInfo();
     }
 
+
+    fun setupWebView(url: String){
+        web.settings.javaScriptEnabled = true; // enabling js
+        web.webViewClient = WebViewClient(); // Load web inside the app.
+        web.loadUrl(url);
+    }
 }
