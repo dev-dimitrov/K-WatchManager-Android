@@ -60,7 +60,7 @@ class WatchScreenActivity : AppCompatActivity() {
         }
 
 
-       setupWebView("https://www.time.is");
+       // setupWebView("https://www.time.is");
     }
 
     fun asignObjectId(){
