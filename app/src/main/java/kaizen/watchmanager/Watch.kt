@@ -42,11 +42,10 @@ class Watch( // constructor parameters
         return brand+" "+model;
     }
 
-    fun logWrite(desc: String){
-        // Format the exact time of log creation to string
-        var parsedDate = LocalDateTime.now().format(formatter);
-        log.put(parsedDate,desc);
+    fun logWrite(strDate: String, desc: String){
+        log.put(strDate,desc);
     }
+
 
     fun getLog(): String{
         var keyS = log.keys;

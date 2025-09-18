@@ -35,6 +35,7 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var statusTxt: TextView;
     lateinit var input: TextInputEditText;
     lateinit var web: WebView;
+    var logShowing = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -59,8 +60,21 @@ class WatchScreenActivity : AppCompatActivity() {
             finish();
         }
 
+        watchAtt.setOnClickListener({
+            if(!logShowing){
+                var logs = w.getLog();
+                watchAtt.text = if (!logs.isEmpty()) logs+"Tap HERE to see watch information" else "Empty logs\nTap HERE to see watch information";
+                logShowing = true;
+            }
+            else{
+                drawWatchInfo();
+                logShowing = false;
+            }
 
-       setupWebView("https://www.time.is");
+        });
+
+
+       // setupWebView("https://www.time.is");
     }
 
     fun asignObjectId(){
@@ -73,33 +87,39 @@ class WatchScreenActivity : AppCompatActivity() {
         statusTxt = findViewById(R.id.statusText);
         input = findViewById(R.id.inputText);
         web = findViewById(R.id.webv);
+        web.visibility = View.INVISIBLE;
     }
 
     fun drawWatchInfo(){
         brandTxt.text = w.brand;
         modelTxt.text = w.model;
-        watchAtt.text = "Last Adjustment: "+w.lastAdjust+"\nMovement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo;
+        watchAtt.text = "Last Adjustment: "+w.lastAdjust+"\nMovement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo+"\nTap HERE to see logs";
     }
 
 
     fun adjustWatch(){
         var msg = "";
+        var status = 0;
+        var strDate = "";
         if(input.text.toString().isBlank()){
             w.lastAdjust = LocalDateTime.now().format(Watch.formatter);
+            strDate = w.lastAdjust;
             statusTxt.setTextColor(Color.GREEN);
             msg = "Successfully adjusted!!";
         }
         else{
-            var strDate = input.text.toString();
+            strDate = input.text.toString();
             try{
                 var dateTime = LocalDateTime.parse(strDate, Watch.formatter);
                 w.lastAdjust = strDate;
+
                 statusTxt.setTextColor(Color.GREEN);
                 msg = "Successfully adjusted!!";
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
                 msg = "Error while parsing the date...";
+                status = 1;
             }
         }
 
@@ -107,6 +127,9 @@ class WatchScreenActivity : AppCompatActivity() {
         statusTxt.visibility = View.VISIBLE;
 
         drawWatchInfo();
+        if(status == 0){
+            w.logWrite(strDate, "Adjusted.");
+        }
     }
 
 

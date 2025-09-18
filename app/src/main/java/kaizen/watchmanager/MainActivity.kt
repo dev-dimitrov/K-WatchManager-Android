@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
         statusTxt = findViewById(R.id.mainStatusText);
         statusTxt.visibility = View.INVISIBLE;
-        //wipeData();
+        // wipeData();
         loadWatches();
 
         addBtn = findViewById(R.id.addButton);
