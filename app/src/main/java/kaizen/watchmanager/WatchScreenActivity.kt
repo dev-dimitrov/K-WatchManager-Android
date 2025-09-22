@@ -169,9 +169,19 @@ class WatchScreenActivity : AppCompatActivity() {
             try{
                 var l = LocalTime.parse(text,formatter);
                 var secondsDiff = nowTime.until(l, ChronoUnit.SECONDS);
-                var text = secondsDiff.toString();
+                var text = "";
+                if(secondsDiff < 0){
+                    text = "-"+(secondsDiff.toString());
+                }
+                else{
+                    text = secondsDiff.toString();
+                }
+                var deviation = getDeviation(w.lastAdjust, secondsDiff);
+                statusTxt.text = text+"s.";
+                if(deviation != null){
+                    statusTxt.setText(text+"s. "+deviation.toString()+"s per day.");
+                }
 
-                statusTxt.text = text;
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
@@ -181,5 +191,17 @@ class WatchScreenActivity : AppCompatActivity() {
             input.hint = defHint;
         }
         input.text?.clear();
+    }
+
+    fun getDeviation(la: String, s: Long): Long?{
+        var result: Long?;
+        result = null;
+        if(la.isNotBlank()){
+            var now = LocalDateTime.now();
+            var then = LocalDateTime.parse(la,Watch.formatter);
+            var days = then.until(now,ChronoUnit.DAYS);
+            result = s/days;
+        }
+        return result;
     }
 }
