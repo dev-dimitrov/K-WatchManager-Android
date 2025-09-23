@@ -111,6 +111,7 @@ class WatchScreenActivity : AppCompatActivity() {
 
 
     fun adjustWatch(){
+        input.hint = defHint;
         var msg = "";
         var status = 0;
         var strDate = "";
@@ -131,7 +132,7 @@ class WatchScreenActivity : AppCompatActivity() {
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
-                msg = "Error while parsing the date...";
+                msg = "Wrong format for adjust watch...";
                 status = 1;
             }
         }
@@ -185,7 +186,7 @@ class WatchScreenActivity : AppCompatActivity() {
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
-                statusTxt.text = "Wrong format...";
+                statusTxt.text = "Wrong format for checking accuracy.";
                 return;
             }
             w.logWrite(Watch.formatter.format(LocalDateTime.now()),statusTxt.text.toString());
