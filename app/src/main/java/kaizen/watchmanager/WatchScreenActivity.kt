@@ -22,7 +22,12 @@ import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalUnit
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchScreenActivity : AppCompatActivity() {
@@ -35,7 +40,12 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var statusTxt: TextView;
     lateinit var input: TextInputEditText;
     lateinit var web: WebView;
+    lateinit var nowTime: LocalTime;
     var logShowing = false;
+    var formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    var defHint = "yyy-mm-dd hh:mm:ss";
+    var accHint = "(hh:mm:ss) and then press the button again";
+    var firstHitted = true;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -73,7 +83,10 @@ class WatchScreenActivity : AppCompatActivity() {
 
         });
 
-
+        accBtn.setOnClickListener({
+            startCheckAccuracyProcess();
+            firstHitted = !firstHitted;
+        })
        // setupWebView("https://www.time.is");
     }
 
@@ -98,6 +111,7 @@ class WatchScreenActivity : AppCompatActivity() {
 
 
     fun adjustWatch(){
+        input.hint = defHint;
         var msg = "";
         var status = 0;
         var strDate = "";
@@ -118,7 +132,7 @@ class WatchScreenActivity : AppCompatActivity() {
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
-                msg = "Error while parsing the date...";
+                msg = "Wrong format for adjust watch...";
                 status = 1;
             }
         }
@@ -134,8 +148,68 @@ class WatchScreenActivity : AppCompatActivity() {
 
 
     fun setupWebView(url: String){
+        web.visibility = View.VISIBLE;
         web.settings.javaScriptEnabled = true; // enabling js
         web.webViewClient = WebViewClient(); // Load web inside the app.
         web.loadUrl(url);
+    }
+
+    fun startCheckAccuracyProcess(){
+        if(firstHitted){
+            setupWebView("https://www.time.is");
+            nowTime = LocalTime.now();
+            nowTime = nowTime.plusSeconds(30);
+            var nowTimeString = formatter.format(nowTime);
+            statusTxt.setTextColor(Color.WHITE);
+            statusTxt.setText("What time is it in your watch at "+nowTimeString+" ?");
+            statusTxt.visibility = View.VISIBLE;
+            input.hint = accHint;
+        }
+        else{
+            var text = input.text.toString();
+            try{
+                var l = LocalTime.parse(text,formatter);
+                var secondsDiff = nowTime.until(l, ChronoUnit.SECONDS);
+                var text = "";
+                if(secondsDiff < 0){
+                    text = (secondsDiff.toString());
+                }
+                else{
+                    text = "+"+secondsDiff.toString();
+                }
+                var deviation = getDeviation(w.lastAdjust, secondsDiff);
+                statusTxt.text = text+"s.";
+                if(deviation != null){
+                    statusTxt.setText(text+"s. "+deviation.toString()+"s per day.");
+                }
+
+            }
+            catch(ex: DateTimeParseException){
+                statusTxt.setTextColor(Color.RED);
+                statusTxt.text = "Wrong format for checking accuracy.";
+                return;
+            }
+            w.logWrite(Watch.formatter.format(LocalDateTime.now()),statusTxt.text.toString());
+            input.hint = defHint;
+        }
+        input.text?.clear();
+    }
+
+    fun getDeviation(la: String, s: Long): Long?{
+        var result: Long?;
+        result = null;
+        if(la.isNotBlank()){
+            var now = LocalDateTime.now();
+            var then = LocalDateTime.parse(la,Watch.formatter);
+            var days = then.until(now,ChronoUnit.DAYS);
+            if(days.toInt() == 0){
+                result = s;
+            }
+            else{
+                result = s/days;
+            }
+
+        }
+        return result;
     }
 }
