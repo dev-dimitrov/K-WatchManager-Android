@@ -3,12 +3,14 @@ package kaizen.watchmanager
 import Watch
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,6 +28,7 @@ class WatchCreationActivity : AppCompatActivity() {
     lateinit var addWatch: Button;
     lateinit var statusText: TextView;
     lateinit var cancel: Button;
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,6 +65,7 @@ class WatchCreationActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createWatch(): Watch? {
         var w: Watch;
         var brand = brandI.text.toString();

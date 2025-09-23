@@ -165,16 +165,16 @@ class WatchScreenActivity : AppCompatActivity() {
             input.hint = accHint;
         }
         else{
-            var text = input.text;
+            var text = input.text.toString();
             try{
                 var l = LocalTime.parse(text,formatter);
                 var secondsDiff = nowTime.until(l, ChronoUnit.SECONDS);
                 var text = "";
                 if(secondsDiff < 0){
-                    text = "-"+(secondsDiff.toString());
+                    text = (secondsDiff.toString());
                 }
                 else{
-                    text = secondsDiff.toString();
+                    text = "+"+secondsDiff.toString();
                 }
                 var deviation = getDeviation(w.lastAdjust, secondsDiff);
                 statusTxt.text = text+"s.";
@@ -188,6 +188,7 @@ class WatchScreenActivity : AppCompatActivity() {
                 statusTxt.text = "Wrong format...";
                 return;
             }
+            w.logWrite(Watch.formatter.format(LocalDateTime.now()),statusTxt.text.toString());
             input.hint = defHint;
         }
         input.text?.clear();
@@ -200,7 +201,13 @@ class WatchScreenActivity : AppCompatActivity() {
             var now = LocalDateTime.now();
             var then = LocalDateTime.parse(la,Watch.formatter);
             var days = then.until(now,ChronoUnit.DAYS);
-            result = s/days;
+            if(days.toInt() == 0){
+                result = s;
+            }
+            else{
+                result = s/days;
+            }
+
         }
         return result;
     }
