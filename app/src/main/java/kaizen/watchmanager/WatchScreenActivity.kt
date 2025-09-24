@@ -180,7 +180,7 @@ class WatchScreenActivity : AppCompatActivity() {
                 var deviation = getDeviation(w.lastAdjust, secondsDiff);
                 statusTxt.text = text+"s.";
                 if(deviation != null){
-                    statusTxt.setText(text+"s. "+deviation.toString()+"s per day.");
+                    statusTxt.setText(text+"s. "+deviation.toString()+"s/day.");
                 }
 
             }
