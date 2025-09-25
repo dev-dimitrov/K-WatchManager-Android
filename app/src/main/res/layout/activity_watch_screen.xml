@@ -109,6 +109,7 @@
         app:layout_constraintVertical_bias="0.573" />
 
     <ScrollView
+        android:id="@+id/infoContainer"
         android:layout_width="345dp"
         android:layout_height="196dp"
         app:layout_constraintBottom_toBottomOf="parent"
