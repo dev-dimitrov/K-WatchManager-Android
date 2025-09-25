@@ -10,6 +10,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
@@ -41,6 +42,7 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var input: TextInputEditText;
     lateinit var web: WebView;
     lateinit var nowTime: LocalTime;
+    lateinit var infoCont: ScrollView;
     var logShowing = false;
     var formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     var defHint = "yyy-mm-dd hh:mm:ss";
@@ -70,7 +72,7 @@ class WatchScreenActivity : AppCompatActivity() {
             finish();
         }
 
-        watchAtt.setOnClickListener({
+        infoCont.setOnClickListener({
             if(!logShowing){
                 var logs = w.getLog();
                 watchAtt.text = if (!logs.isEmpty()) logs+"Tap HERE to see watch information" else "Empty logs\nTap HERE to see watch information";
@@ -100,6 +102,7 @@ class WatchScreenActivity : AppCompatActivity() {
         statusTxt = findViewById(R.id.statusText);
         input = findViewById(R.id.inputText);
         web = findViewById(R.id.webv);
+        infoCont = findViewById(R.id.infoContainer);
         web.visibility = View.INVISIBLE;
     }
 
