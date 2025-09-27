@@ -72,7 +72,7 @@ class WatchScreenActivity : AppCompatActivity() {
             finish();
         }
 
-        infoCont.setOnClickListener({
+        watchAtt.setOnClickListener({
             if(!logShowing){
                 var logs = w.getLog();
                 watchAtt.text = if (!logs.isEmpty()) logs+"Tap HERE to see watch information" else "Empty logs\nTap HERE to see watch information";
