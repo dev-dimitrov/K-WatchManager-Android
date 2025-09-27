@@ -62,7 +62,15 @@ class WatchScreenActivity : AppCompatActivity() {
         w = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
         drawWatchInfo();
         adjustBtn.setOnClickListener{
-            adjustWatch();
+            if(!firstHitted){
+                firstHitted = true;
+                input.text?.clear();
+                input.hint = defHint;
+                statusTxt.text = "Switched mode to Adjust, type now the date that was adjusted..."
+            }
+            else{
+                adjustWatch();
+            }
         }
 
         onBackPressedDispatcher.addCallback (this){
