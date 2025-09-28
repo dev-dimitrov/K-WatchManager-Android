@@ -97,6 +97,15 @@ class WatchScreenActivity : AppCompatActivity() {
 
         });
 
+        revertBtn.setOnClickListener({
+            w = initalWatch;
+            drawWatchInfo();
+            statusTxt.text = "Reverted changes.";
+            statusTxt.visibility = View.VISIBLE;
+            statusTxt.setTextColor(Color.GREEN);
+            logShowing = false;
+        });
+
         accBtn.setOnClickListener({
             startCheckAccuracyProcess();
             firstHitted = !firstHitted;
