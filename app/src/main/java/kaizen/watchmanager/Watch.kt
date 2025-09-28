@@ -62,6 +62,13 @@ class Watch( // constructor parameters
     }
 
     companion object{
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        fun copy(w: Watch) : Watch{
+            var newWatch = Watch(w.brand,w.model,w.type,w.caliber, w.theoreticAccuracy,w.moreInfo);
+            newWatch.lastAdjust = w.lastAdjust;
+            newWatch.log = LinkedHashMap(w.log);
+            return newWatch;
+        }
     }
 }

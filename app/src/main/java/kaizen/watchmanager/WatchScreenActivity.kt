@@ -10,6 +10,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -38,11 +39,13 @@ class WatchScreenActivity : AppCompatActivity() {
     lateinit var accBtn: Button;
     lateinit var watchAtt: TextView;
     lateinit var w: Watch;
+    lateinit var initalWatch: Watch;
     lateinit var statusTxt: TextView;
     lateinit var input: TextInputEditText;
     lateinit var web: WebView;
     lateinit var nowTime: LocalTime;
     lateinit var infoCont: ScrollView;
+    lateinit var revertBtn: ImageButton;
     var logShowing = false;
     var formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     var defHint = "yyy-mm-dd hh:mm:ss";
@@ -60,6 +63,7 @@ class WatchScreenActivity : AppCompatActivity() {
         asignObjectId();
         statusTxt.visibility = View.INVISIBLE;
         w = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
+        initalWatch = Watch.copy(w);
         drawWatchInfo();
         adjustBtn.setOnClickListener{
             if(!firstHitted){
@@ -93,6 +97,15 @@ class WatchScreenActivity : AppCompatActivity() {
 
         });
 
+        revertBtn.setOnClickListener({
+            w = initalWatch;
+            drawWatchInfo();
+            statusTxt.text = "Reverted changes.";
+            statusTxt.visibility = View.VISIBLE;
+            statusTxt.setTextColor(Color.GREEN);
+            logShowing = false;
+        });
+
         accBtn.setOnClickListener({
             startCheckAccuracyProcess();
             firstHitted = !firstHitted;
@@ -110,6 +123,7 @@ class WatchScreenActivity : AppCompatActivity() {
         statusTxt = findViewById(R.id.statusText);
         input = findViewById(R.id.inputText);
         web = findViewById(R.id.webv);
+        revertBtn = findViewById(R.id.revertButton);
         infoCont = findViewById(R.id.infoContainer);
         web.visibility = View.INVISIBLE;
     }
