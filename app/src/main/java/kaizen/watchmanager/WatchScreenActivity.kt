@@ -63,7 +63,7 @@ class WatchScreenActivity : AppCompatActivity() {
         asignObjectId();
         statusTxt.visibility = View.INVISIBLE;
         w = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
-
+        initalWatch = Watch.copy(w);
         drawWatchInfo();
         adjustBtn.setOnClickListener{
             if(!firstHitted){
