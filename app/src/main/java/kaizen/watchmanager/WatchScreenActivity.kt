@@ -66,6 +66,7 @@ class WatchScreenActivity : AppCompatActivity() {
         initalWatch = Watch.copy(w);
         drawWatchInfo();
         adjustBtn.setOnClickListener{
+            web.visibility = View.INVISIBLE;
             if(!firstHitted){
                 firstHitted = true;
                 input.text?.clear();
@@ -98,12 +99,14 @@ class WatchScreenActivity : AppCompatActivity() {
         });
 
         revertBtn.setOnClickListener({
+            web.visibility = View.INVISIBLE;
             w = initalWatch;
             drawWatchInfo();
             statusTxt.text = "Reverted changes.";
             statusTxt.visibility = View.VISIBLE;
             statusTxt.setTextColor(Color.GREEN);
             logShowing = false;
+
         });
 
         accBtn.setOnClickListener({
