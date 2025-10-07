@@ -113,7 +113,7 @@ class WatchScreenActivity : AppCompatActivity() {
             startCheckAccuracyProcess();
             firstHitted = !firstHitted;
         })
-       // setupWebView("https://www.time.is");
+        // setupWebView("https://www.time.is");
     }
 
     fun asignObjectId(){
@@ -205,7 +205,7 @@ class WatchScreenActivity : AppCompatActivity() {
                 else{
                     text = "+"+secondsDiff.toString();
                 }
-                var deviation = getDeviation(w.lastAdjust, secondsDiff);
+                var deviation = getDeviation(w.lastAdjust, secondsDiff.toDouble());
                 statusTxt.text = text+"s.";
                 if(deviation != null){
                     statusTxt.setText(text+"s. "+deviation.toString()+"s/day.");
@@ -223,13 +223,13 @@ class WatchScreenActivity : AppCompatActivity() {
         input.text?.clear();
     }
 
-    fun getDeviation(la: String, s: Long): Long?{
-        var result: Long?;
+    fun getDeviation(la: String, s: Double): Double?{
+        var result: Double?;
         result = null;
         if(la.isNotBlank()){
             var now = LocalDateTime.now();
             var then = LocalDateTime.parse(la,Watch.formatter);
-            var days = then.until(now,ChronoUnit.DAYS);
+            var days = then.until(now,ChronoUnit.DAYS).toDouble();
             if(days.toInt() == 0){
                 result = s;
             }
