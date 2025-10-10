@@ -208,7 +208,7 @@ class WatchScreenActivity : AppCompatActivity() {
                 var deviation = getDeviation(w.lastAdjust, secondsDiff.toDouble());
                 statusTxt.text = text+"s.";
                 if(deviation != null){
-                    statusTxt.setText(text+"s. "+deviation.toString()+"s/day.");
+                    statusTxt.setText(text+"s. About "+deviation.toString()+"s/day.");
                 }
 
             }
