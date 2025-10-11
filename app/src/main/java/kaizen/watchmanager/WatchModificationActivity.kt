@@ -30,9 +30,10 @@ class WatchModificationActivity : AppCompatActivity() {
     lateinit var statusText: TextView;
     lateinit var cancel: Button;
     lateinit var watch: Watch;
+    lateinit var title: TextView;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge();
         setContentView(R.layout.activity_watch_creation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -69,7 +70,7 @@ class WatchModificationActivity : AppCompatActivity() {
         typeI = findViewById(R.id.tyInput);
         typeI.setText(watch.type);
 
-        caliberI = findViewById(R.id.tyInput);
+        caliberI = findViewById(R.id.caliberInput);
         caliberI.setText(watch.caliber);
 
         moreInfoI = findViewById(R.id.moreInfoInput);
@@ -83,7 +84,9 @@ class WatchModificationActivity : AppCompatActivity() {
 
         cancel = findViewById(R.id.cancelButton);
         statusText.visibility = View.INVISIBLE;
-        addWatch.text = "Modify Watch";
+        title = findViewById(R.id.textView);
+        title.text = "Watch modification";
+        addWatch.text = "Modify";
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -103,6 +106,9 @@ class WatchModificationActivity : AppCompatActivity() {
 
         statusText.visibility = View.INVISIBLE;
         w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
+        w.log = watch.log;
+        w.lastAdjust = watch.lastAdjust;
+        w = watch;
         showStatus("Watch successfully modified!",Color.GREEN);
         return w;
     }
