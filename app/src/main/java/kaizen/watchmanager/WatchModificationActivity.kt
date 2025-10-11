@@ -18,6 +18,7 @@ import androidx.transition.Visibility
 import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchModificationActivity : AppCompatActivity() {
     lateinit var brandI: TextInputEditText;
     lateinit var modelI: TextInputEditText;
@@ -28,7 +29,7 @@ class WatchModificationActivity : AppCompatActivity() {
     lateinit var addWatch: Button;
     lateinit var statusText: TextView;
     lateinit var cancel: Button;
-    @RequiresApi(Build.VERSION_CODES.O)
+    lateinit var watch: Watch;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,12 +39,13 @@ class WatchModificationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setupLayout();
 
+        setupLayout();
+        watch = intent.getSerializableExtra("WATCH", Watch::class.java)!!;
 
 
         addWatch.setOnClickListener{
-            var w = createWatch();
+            var w = modifyWatch();
             if(w != null){
                 var intent = Intent(); // create a new intent
                 intent.putExtra("WATCH",w as Serializable); // assign the new watch created to the key "WATCH"
@@ -59,20 +61,33 @@ class WatchModificationActivity : AppCompatActivity() {
 
     fun setupLayout(){
         brandI = findViewById(R.id.brandInput);
+        brandI.setText(watch.brand);
+
         modelI = findViewById(R.id.modelInput);
+        modelI.setText(watch.model);
+
         typeI = findViewById(R.id.tyInput);
+        typeI.setText(watch.type);
+
         caliberI = findViewById(R.id.tyInput);
+        caliberI.setText(watch.caliber);
+
         moreInfoI = findViewById(R.id.moreInfoInput);
+        moreInfoI.setText(watch.moreInfo);
+
+        theoreticAccuracyI = findViewById(R.id.taInput);
+        theoreticAccuracyI.setText(watch.theoreticAccuracy);
+
         addWatch = findViewById(R.id.addWatchButton);
         statusText = findViewById(R.id.statusTxt);
-        theoreticAccuracyI = findViewById(R.id.taInput);
+
         cancel = findViewById(R.id.cancelButton);
         statusText.visibility = View.INVISIBLE;
         addWatch.text = "Modify Watch";
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createWatch(): Watch? {
+    fun modifyWatch(): Watch? {
         var w: Watch;
         var brand = brandI.text.toString();
         var model = modelI.text.toString();
@@ -88,7 +103,7 @@ class WatchModificationActivity : AppCompatActivity() {
 
         statusText.visibility = View.INVISIBLE;
         w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
-        showStatus("Watch created successfully!",Color.GREEN);
+        showStatus("Watch successfully modified!",Color.GREEN);
         return w;
     }
 
