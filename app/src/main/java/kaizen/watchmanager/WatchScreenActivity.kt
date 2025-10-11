@@ -19,17 +19,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.transition.Visibility
 import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.time.temporal.ChronoUnit
-import java.time.temporal.Temporal
-import java.time.temporal.TemporalUnit
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchScreenActivity : AppCompatActivity() {
@@ -60,7 +56,7 @@ class WatchScreenActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        asignObjectId();
+        setupLayout();
         statusTxt.visibility = View.INVISIBLE;
         w = intent.getSerializableExtra("WATCH", Watch::class.java)!!; // Receives the watch from the main activity
         initalWatch = Watch.copy(w);
@@ -116,7 +112,7 @@ class WatchScreenActivity : AppCompatActivity() {
         // setupWebView("https://www.time.is");
     }
 
-    fun asignObjectId(){
+    fun setupLayout(){
         brandTxt = findViewById(R.id.brandText);
         modelTxt = findViewById(R.id.modelText);
         adjustBtn = findViewById(R.id.adjustButton);
