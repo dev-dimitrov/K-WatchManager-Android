@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         list.setOnItemLongClickListener { parent, view, position, id ->
             pressedWatch = true; // This will update the watch, managed by the launcher callback
             var heldWatch = arrayList.get(position.toInt());
-            var intent = Intent(this,WatchModificationActivity::class.java);
+            var intent = Intent(this,WatchModActivity::class.java);
             intent.putExtra("WATCH",heldWatch as Serializable);
             launcher.launch(intent);
             true // This is to consume the event and not trigger the click listener
