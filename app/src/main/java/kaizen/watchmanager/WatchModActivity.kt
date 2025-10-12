@@ -15,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable;
 import Watch;
+import android.util.Log
+
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchModActivity : AppCompatActivity() {
     lateinit var brandI: TextInputEditText;
@@ -44,7 +46,8 @@ class WatchModActivity : AppCompatActivity() {
 
 
         addWatch.setOnClickListener{
-            var w = modifyWatch();
+            var w = modifyWatch()!!;
+            // Log.i("DAVIDO-INFO",w.fullInfo());
             if(w != null){
                 var intent = Intent(); // create a new intent
                 intent.putExtra("WATCH",w as Serializable); // assign the new watch created to the key "WATCH"
@@ -106,7 +109,6 @@ class WatchModActivity : AppCompatActivity() {
         w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
         w.log = watch.log;
         w.lastAdjust = watch.lastAdjust;
-        w = watch;
         showStatus("Watch successfully modified!", Color.GREEN);
         return w;
     }

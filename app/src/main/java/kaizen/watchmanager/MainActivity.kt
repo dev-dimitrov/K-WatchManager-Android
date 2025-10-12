@@ -3,6 +3,7 @@ package kaizen.watchmanager
 import Watch
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -25,6 +26,8 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.ArrayList
+import android.util.Log
+import androidx.annotation.RequiresApi
 
 class MainActivity : AppCompatActivity() {
     lateinit var addBtn: ImageButton;
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
         statusTxt = findViewById(R.id.mainStatusText);
         statusTxt.visibility = View.INVISIBLE;
-        // wipeData();
+        wipeData();
         loadWatches();
 
         addBtn = findViewById(R.id.addButton);
@@ -134,11 +137,13 @@ class MainActivity : AppCompatActivity() {
 
 
     // This will execute as a callback, when an activity sends back a object
+    @RequiresApi(Build.VERSION_CODES.O)
     private val launcher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
+            // Log.i("DAVIDO-INFO","MAIN -> "+newWatch.fullInfo());
             if(pressedWatch){
                 arrayList.remove(newWatch);
                 pressedWatch = false;

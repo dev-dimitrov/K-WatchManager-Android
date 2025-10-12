@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -52,6 +53,7 @@ class WatchCreationActivity : AppCompatActivity() {
 
         addWatch.setOnClickListener{
             var w = createWatch();
+
             if(w != null){
                 var intent = Intent(); // create a new intent
                 intent.putExtra("WATCH",w as Serializable); // assign the new watch created to the key "WATCH"

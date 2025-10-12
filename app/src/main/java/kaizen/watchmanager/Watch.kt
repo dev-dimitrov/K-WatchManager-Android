@@ -41,6 +41,9 @@ class Watch( // constructor parameters
     override fun toString(): String{
         return brand+" "+model;
     }
+    fun fullInfo(): String{
+        return brand+" "+model+" "+type+" "+caliber+" "+theoreticAccuracy+" "+moreInfo+" "+log.size;
+    }
 
     fun logWrite(strDate: String, desc: String){
         log.put(strDate,desc);
