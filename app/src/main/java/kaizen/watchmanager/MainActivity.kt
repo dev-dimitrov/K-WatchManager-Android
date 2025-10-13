@@ -26,9 +26,10 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.ArrayList
-import android.util.Log
-import androidx.annotation.RequiresApi
+import android.util.Log;
+import androidx.annotation.RequiresApi;
 
+@RequiresApi(Build.VERSION_CODES.O)
 class MainActivity : AppCompatActivity() {
     lateinit var addBtn: ImageButton;
     lateinit var list: ListView;
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var watch: Watch;
     lateinit var statusTxt: TextView;
     var pressedWatch = false;
+    var watchPos = 0;
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -64,7 +67,8 @@ class MainActivity : AppCompatActivity() {
 
         list.setOnItemClickListener{parent, view, position, id ->
             pressedWatch = true;
-            var selectedWatch = arrayList.get(position.toInt());
+            watchPos = position.toInt();
+            var selectedWatch = arrayList.get(watchPos);
             var intent = Intent(this,WatchScreenActivity::class.java);
             intent.putExtra("WATCH", selectedWatch as Serializable);
             launcher.launch(intent);
@@ -79,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             true // This is to consume the event and not trigger the click listener
         }
     }
+
 
     fun addWatch() {
         var intent = Intent(this, WatchCreationActivity::class.java)
@@ -145,7 +150,7 @@ class MainActivity : AppCompatActivity() {
             val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
             // Log.i("DAVIDO-INFO","MAIN -> "+newWatch.fullInfo());
             if(pressedWatch){
-                arrayList.remove(newWatch);
+                arrayList.removeAt(watchPos);
                 pressedWatch = false;
             }
 
@@ -155,7 +160,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    public fun showStatus(msg: String, color: Int){
+    fun showStatus(msg: String, color: Int){
         statusTxt.setTextColor(color);
         statusTxt.text = msg;
         statusTxt.visibility = View.VISIBLE;
