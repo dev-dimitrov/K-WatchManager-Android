@@ -158,6 +158,9 @@ class MainActivity : AppCompatActivity() {
             saveWatches();
             adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
         }
+        else{
+            arrayList.removeAt(watchPos);
+        }
     }
 
     fun showStatus(msg: String, color: Int){

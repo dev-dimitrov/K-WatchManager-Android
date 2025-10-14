@@ -31,6 +31,7 @@ class WatchModificationActivity : AppCompatActivity() {
     lateinit var cancel: Button;
     lateinit var watch: Watch;
     lateinit var title: TextView;
+    var firstPressed = true;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge();
@@ -56,7 +57,16 @@ class WatchModificationActivity : AppCompatActivity() {
         }
 
         cancel.setOnClickListener{
-            finish();
+            if(firstPressed){
+                showStatus("Press again to delete the watch",Color.RED);
+                firstPressed = false;
+            }
+            else{
+                var intent = Intent();
+                intent.putExtra("WATCH",watch as Serializable);
+                setResult(RESULT_CANCELED, intent);
+                finish();
+            }
         }
     }
 
@@ -87,6 +97,7 @@ class WatchModificationActivity : AppCompatActivity() {
         title = findViewById(R.id.textView);
         title.text = "Watch modification";
         addWatch.text = "Modify";
+        cancel.text = "Delete";
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
