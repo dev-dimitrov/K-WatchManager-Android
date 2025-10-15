@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable;
 import Watch;
 import android.util.Log
+import androidx.activity.addCallback
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchModActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class WatchModActivity : AppCompatActivity() {
     lateinit var cancel: Button;
     lateinit var watch: Watch;
     lateinit var title: TextView;
+    var firstPressed = true;
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,12 @@ class WatchModActivity : AppCompatActivity() {
         watch = intent.getSerializableExtra("WATCH", Watch::class.java)!!;
         setupLayout();
 
-
+        onBackPressedDispatcher.addCallback {
+            var intent = Intent(); // create a new intent
+            intent.putExtra("WATCH",watch as Serializable); // assign the new watch created to the key "WATCH"
+            setResult(RESULT_OK, intent); // Set the result with the intent
+            finish(); // Exit this activity
+        }
 
         addWatch.setOnClickListener{
             var w = modifyWatch()!!;
@@ -57,7 +64,16 @@ class WatchModActivity : AppCompatActivity() {
         }
 
         cancel.setOnClickListener{
-            finish();
+            if(firstPressed){
+                showStatus("Press again to delete the watch",Color.RED);
+                firstPressed = false;
+            }
+            else{
+                var intent = Intent();
+                intent.putExtra("WATCH",watch as Serializable);
+                setResult(RESULT_CANCELED, intent);
+                finish();
+            }
         }
     }
 
@@ -88,6 +104,7 @@ class WatchModActivity : AppCompatActivity() {
         title = findViewById(R.id.textView);
         title.text = "Watch modification";
         addWatch.text = "Modify";
+        cancel.text = "Delete";
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

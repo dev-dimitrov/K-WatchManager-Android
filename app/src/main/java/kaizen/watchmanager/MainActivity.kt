@@ -156,8 +156,9 @@ class MainActivity : AppCompatActivity() {
 
             arrayList.add(newWatch); // adding the brand new watch or update the one with the new last adjustment
         }
-        else{
+        else if (result.resultCode == RESULT_CANCELED){
             arrayList.removeAt(watchPos);
+            pressedWatch = false;
         }
         saveWatches();
         adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
