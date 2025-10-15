@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
         statusTxt = findViewById(R.id.mainStatusText);
         statusTxt.visibility = View.INVISIBLE;
-        wipeData();
+        // wipeData();
         loadWatches();
 
         addBtn = findViewById(R.id.addButton);
@@ -155,12 +155,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             arrayList.add(newWatch); // adding the brand new watch or update the one with the new last adjustment
-            saveWatches();
-            adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
         }
         else{
             arrayList.removeAt(watchPos);
         }
+        saveWatches();
+        adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
     }
 
     fun showStatus(msg: String, color: Int){
