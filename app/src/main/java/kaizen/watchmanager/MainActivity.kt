@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity() {
 
         list.adapter = adapter;
 
+        check4emptyList();
+
         addBtn.setOnClickListener({
             addWatch();
         });
@@ -160,6 +162,8 @@ class MainActivity : AppCompatActivity() {
             arrayList.removeAt(watchPos);
             pressedWatch = false;
         }
+        check4emptyList();
+
         saveWatches();
         adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
     }
@@ -168,5 +172,14 @@ class MainActivity : AppCompatActivity() {
         statusTxt.setTextColor(color);
         statusTxt.text = msg;
         statusTxt.visibility = View.VISIBLE;
+    }
+
+    fun check4emptyList(){
+        if(arrayList.isEmpty()){
+            showStatus("No watches added for now.",Color.GREEN);
+        }
+        else{
+            statusTxt.visibility = View.INVISIBLE;
+        }
     }
 }
