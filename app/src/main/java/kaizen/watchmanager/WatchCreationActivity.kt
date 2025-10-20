@@ -15,7 +15,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.transition.Visibility
 import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable
 
