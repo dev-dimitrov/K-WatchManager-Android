@@ -15,7 +15,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable;
 import Watch;
-import android.util.Log
 import androidx.activity.addCallback
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

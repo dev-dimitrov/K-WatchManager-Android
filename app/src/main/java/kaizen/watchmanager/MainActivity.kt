@@ -11,12 +11,10 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.textfield.TextInputEditText
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -26,7 +24,6 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.ArrayList
-import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -35,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var list: ListView;
     var arrayList = ArrayList<Watch>();
     lateinit var adapter: ArrayAdapter<Watch>;
-    lateinit var watch: Watch;
     lateinit var statusTxt: TextView;
     var pressedWatch = false;
     var watchPos = 0;
@@ -56,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         addBtn = findViewById(R.id.addButton);
         list = findViewById(R.id.listView);
+        // Asigning
         adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
 
 
@@ -151,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
             // Log.i("DAVIDO-INFO","MAIN -> "+newWatch.fullInfo());
+            // This if protects from callback that are coming from the WatchCreationActivity
             if(pressedWatch){
                 arrayList.removeAt(watchPos);
                 pressedWatch = false;
@@ -168,12 +166,15 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
     }
 
+
+    // Simple method to print status messages with a color
     fun showStatus(msg: String, color: Int){
         statusTxt.setTextColor(color);
         statusTxt.text = msg;
         statusTxt.visibility = View.VISIBLE;
     }
 
+    // A method to check it the list is empty, to show a message under the list container
     fun check4emptyList(){
         if(arrayList.isEmpty()){
             showStatus("No watches added for now.",Color.GREEN);
