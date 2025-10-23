@@ -138,20 +138,16 @@ class WatchScreenActivity : AppCompatActivity() {
         var msg = "";
         var status = 0;
         var strDate = "";
+        // if there is no input = means that was adjusted now
         if(input.text.toString().isBlank()){
-            w.lastAdjust = LocalDateTime.now().format(Watch.formatter);
-            strDate = w.lastAdjust;
-            statusTxt.setTextColor(Color.GREEN);
-            msg = "Successfully adjusted!!";
+            w.lastAdjust = LocalDateTime.now().format(Watch.formatter); // format to String
+            strDate = w.lastAdjust; // save the date for later
         }
         else{
             strDate = input.text.toString();
             try{
                 var dateTime = LocalDateTime.parse(strDate, Watch.formatter);
                 w.lastAdjust = strDate;
-
-                statusTxt.setTextColor(Color.GREEN);
-                msg = "Successfully adjusted!!";
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
@@ -160,13 +156,17 @@ class WatchScreenActivity : AppCompatActivity() {
             }
         }
 
-        statusTxt.text = msg;
-        statusTxt.visibility = View.VISIBLE;
+
 
         drawWatchInfo();
         if(status == 0){
             w.logWrite(strDate, "Adjusted.");
+            statusTxt.setTextColor(Color.GREEN);
+            msg = "Successfully adjusted!!";
         }
+
+        statusTxt.text = msg;
+        statusTxt.visibility = View.VISIBLE;
     }
 
 
@@ -178,9 +178,11 @@ class WatchScreenActivity : AppCompatActivity() {
     }
 
     fun startCheckAccuracyProcess(){
+        // If the button was hit for the first time, load the web view and show the status text.
         if(firstHitted){
             setupWebView("https://www.time.is");
             nowTime = LocalTime.now();
+            // Add 30s to now, to give the user time to put correctly the time
             nowTime = nowTime.plusSeconds(30);
             var nowTimeString = formatter.format(nowTime);
             statusTxt.setTextColor(Color.WHITE);
@@ -189,6 +191,7 @@ class WatchScreenActivity : AppCompatActivity() {
             input.hint = accHint;
         }
         else{
+            // get time form input
             var text = input.text.toString();
             try{
                 var l = LocalTime.parse(text,formatter);
@@ -224,7 +227,9 @@ class WatchScreenActivity : AppCompatActivity() {
         if(la.isNotBlank()){
             var now = LocalDateTime.now();
             var then = LocalDateTime.parse(la,Watch.formatter);
+            // The days between now and the last adjustment
             var days = then.until(now,ChronoUnit.DAYS).toDouble();
+            // If the last adjustment was today, do not operate..
             if(days.toInt() == 0){
                 result = s;
             }
@@ -235,4 +240,6 @@ class WatchScreenActivity : AppCompatActivity() {
         }
         return result;
     }
+
+    //TODO make an universal statusShow method for all activities
 }
