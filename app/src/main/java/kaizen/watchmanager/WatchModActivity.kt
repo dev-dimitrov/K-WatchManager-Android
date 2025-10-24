@@ -64,7 +64,7 @@ class WatchModActivity : AppCompatActivity() {
 
         cancel.setOnClickListener{
             if(firstPressed){
-                showStatus("Press again to delete the watch",Color.RED);
+                MainActivity.showStatus("Press again to delete the watch",Color.RED,statusText);
                 firstPressed = false;
             }
             else{
@@ -117,7 +117,7 @@ class WatchModActivity : AppCompatActivity() {
         var theoreticAccuracy = theoreticAccuracyI.text.toString();
 
         if(brand.isEmpty() || model.isEmpty()){
-            showStatus("Error. You must specify the brand and model", Color.RED);
+            MainActivity.showStatus("Error. You must specify the brand and model", Color.RED,statusText);
             return null;
         }
 
@@ -125,13 +125,8 @@ class WatchModActivity : AppCompatActivity() {
         w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
         w.log = watch.log;
         w.lastAdjust = watch.lastAdjust;
-        showStatus("Watch successfully modified!", Color.GREEN);
+        MainActivity.showStatus("Watch successfully modified!", Color.GREEN,statusText);
         return w;
     }
 
-    fun showStatus(msg: String, color: Int){
-        statusText.setTextColor(color);
-        statusText.text = msg;
-        statusText.visibility = View.VISIBLE;
-    }
 }

@@ -77,19 +77,13 @@ class WatchCreationActivity : AppCompatActivity() {
         var theoreticAccuracy = theoreticAccuracyI.text.toString();
 
         if(brand.isEmpty() || model.isEmpty()){
-            showStatus("Error. You must specify the brand and model", Color.RED);
+            MainActivity.showStatus("Error. You must specify the brand and model", Color.RED,statusText);
             return null;
         }
 
         statusText.visibility = View.INVISIBLE;
         w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
-        showStatus("Watch created successfully!",Color.GREEN);
+        MainActivity.showStatus("Watch created successfully!",Color.GREEN,statusText);
         return w;
-    }
-
-    fun showStatus(msg: String, color: Int){
-        statusText.setTextColor(color);
-        statusText.text = msg;
-        statusText.visibility = View.VISIBLE;
     }
 }

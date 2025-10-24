@@ -156,8 +156,6 @@ class WatchScreenActivity : AppCompatActivity() {
             }
         }
 
-
-
         drawWatchInfo();
         if(status == 0){
             w.logWrite(strDate, "Adjusted.");
