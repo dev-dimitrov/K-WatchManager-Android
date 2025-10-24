@@ -25,6 +25,8 @@ import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.ArrayList
 import androidx.annotation.RequiresApi;
+import androidx.transition.Visibility
+import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 class MainActivity : AppCompatActivity() {
@@ -129,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         var o = ObjectOutputStream(FileOutputStream(f));
         try{
             o.writeObject(ArrayList<Watch>());
-            showStatus("Data wiped, remove method to keep data", Color.GREEN);
+            showStatus("Data wiped, remove method to keep data", Color.GREEN, statusTxt);
         }
         catch(ex: IOException){
             ex.printStackTrace();
@@ -168,19 +170,22 @@ class MainActivity : AppCompatActivity() {
 
 
     // Simple method to print status messages with a color
-    fun showStatus(msg: String, color: Int){
-        statusTxt.setTextColor(color);
-        statusTxt.text = msg;
-        statusTxt.visibility = View.VISIBLE;
-    }
 
     // A method to check it the list is empty, to show a message under the list container
     fun check4emptyList(){
         if(arrayList.isEmpty()){
-            showStatus("No watches added for now.",Color.GREEN);
+            showStatus("No watches added for now.",Color.GREEN,statusTxt);
         }
         else{
             statusTxt.visibility = View.INVISIBLE;
         }
     }
+    companion object{
+        fun showStatus(msg: String, color: Int, text: TextView){
+            text.text = msg;
+            text.setTextColor(color);
+            text.visibility = View.VISIBLE;
+        }
+    }
+
 }
