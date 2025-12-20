@@ -30,11 +30,11 @@ class Watch( // constructor parameters
 
     init {
         brand = b.uppercase(Locale.getDefault())
-        model = if(m.isEmpty()) na else m.capitalize();
+        model = if(m.isBlank()) na else m.capitalize();
         type = ty.uppercase(Locale.getDefault())
-        caliber = if(c.isEmpty()) na else c;
-        theoreticAccuracy = if(t.isEmpty()) na else t;
-        moreInfo = if(mi.isEmpty()) na else mi;
+        caliber = if(c.isBlank()) na else c;
+        theoreticAccuracy = if(t.isBlank()) na else t;
+        moreInfo = if(mi.isBlank()) na else mi;
         log = LinkedHashMap();
     }
 

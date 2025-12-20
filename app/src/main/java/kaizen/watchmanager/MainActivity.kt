@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter: ArrayAdapter<Watch>;
     lateinit var statusTxt: TextView;
     var pressedWatch = false;
-    var watchPos = 0;
+    var watchPos = -1;
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         list.setOnItemLongClickListener { parent, view, position, id ->
             pressedWatch = true; // This will update the watch, managed by the launcher callback
             var heldWatch = arrayList.get(position.toInt());
+            watchPos = position.toInt();
             var intent = Intent(this,WatchModActivity::class.java);
             intent.putExtra("WATCH",heldWatch as Serializable);
             launcher.launch(intent);
@@ -88,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     fun addWatch() {
         var intent = Intent(this, WatchCreationActivity::class.java)
+        watchPos = -1;
         launcher.launch(intent);
     }
 
@@ -144,26 +147,28 @@ class MainActivity : AppCompatActivity() {
 
     // This will execute as a callback, when an activity sends back a object
     @RequiresApi(Build.VERSION_CODES.O)
+
     private val launcher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
+        Log.i("DAVIDO-INFO","RESULT -> "+result.resultCode);
+        Log.i("DAVIDO-INFO","LIST -> "+arrayList.toString());
+        Log.i("DAVIDO-INFO","POSITION -> "+watchPos);
         if (result.resultCode == RESULT_OK) {
             val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
             // Log.i("DAVIDO-INFO","MAIN -> "+newWatch.fullInfo());
             // This if protects from callback that are coming from the WatchCreationActivity
-            if(pressedWatch){
+            if(pressedWatch && watchPos != -1){
                 arrayList.removeAt(watchPos);
-                pressedWatch = false;
             }
 
             arrayList.add(newWatch); // adding the brand new watch or update the one with the new last adjustment
         }
-        else if (result.resultCode == RESULT_CANCELED){
+        else if (result.resultCode == RESULT_CANCELED && watchPos != -1) {
             arrayList.removeAt(watchPos);
-            pressedWatch = false;
         }
+        pressedWatch = false;
         check4emptyList();
-
         saveWatches();
         adapter.notifyDataSetChanged(); // Notify that the data changes and updates the listview
     }
@@ -172,7 +177,7 @@ class MainActivity : AppCompatActivity() {
     // Simple method to print status messages with a color
 
     // A method to check it the list is empty, to show a message under the list container
-    fun check4emptyList(){
+    private fun check4emptyList(){
         if(arrayList.isEmpty()){
             showStatus("No watches added for now.",Color.GREEN,statusTxt);
         }
