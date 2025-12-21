@@ -163,7 +163,7 @@ class WatchScreenActivity : AppCompatActivity() {
             msg = "Successfully adjusted!!";
         }
 
-        statusTxt.text = msg;
+        MainActivity.showStatus(msg,Color.WHITE,statusTxt);
         statusTxt.visibility = View.VISIBLE;
     }
 
@@ -183,9 +183,7 @@ class WatchScreenActivity : AppCompatActivity() {
             // Add 30s to now, to give the user time to put correctly the time
             nowTime = nowTime.plusSeconds(30);
             var nowTimeString = formatter.format(nowTime);
-            statusTxt.setTextColor(Color.WHITE);
-            statusTxt.setText("What time is it in your watch at "+nowTimeString+" ?");
-            statusTxt.visibility = View.VISIBLE;
+            MainActivity.showStatus("What time is it in your watch at "+nowTimeString+" ?",Color.WHITE,statusTxt);
             input.hint = accHint;
         }
         else{
@@ -210,7 +208,7 @@ class WatchScreenActivity : AppCompatActivity() {
             }
             catch(ex: DateTimeParseException){
                 statusTxt.setTextColor(Color.RED);
-                statusTxt.text = "Wrong format for checking accuracy.";
+                MainActivity.showStatus("Wrong format for checking accuracy.",Color.RED,statusTxt);
                 return;
             }
             w.logWrite(Watch.formatter.format(LocalDateTime.now()),statusTxt.text.toString());
@@ -238,6 +236,4 @@ class WatchScreenActivity : AppCompatActivity() {
         }
         return result;
     }
-
-    //TODO make an universal statusShow method for all activities
 }

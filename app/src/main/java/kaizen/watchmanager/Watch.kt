@@ -31,7 +31,7 @@ class Watch( // constructor parameters
     init {
         brand = b.uppercase(Locale.getDefault())
         model = if(m.isBlank()) na else m.capitalize();
-        type = ty.uppercase(Locale.getDefault())
+        type = if(ty.isBlank()) na else ty.capitalize();
         caliber = if(c.isBlank()) na else c;
         theoreticAccuracy = if(t.isBlank()) na else t;
         moreInfo = if(mi.isBlank()) na else mi;
