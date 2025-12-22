@@ -11,16 +11,21 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
+        android:layout_width="329dp"
+        android:layout_height="80dp"
+        android:fontFamily="@font/audiowide"
+        android:scaleX="1"
+        android:scaleY="1"
         android:text="Watch creation"
-        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="33sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.105" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -107,7 +112,11 @@
         android:layout_height="wrap_content"
         android:text="Error. You must especify the brand and model."
         android:textColor="#E53935"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="177dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

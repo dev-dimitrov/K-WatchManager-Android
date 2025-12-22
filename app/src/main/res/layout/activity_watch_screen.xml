@@ -47,32 +47,38 @@
 
     <TextView
         android:id="@+id/brandText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="BRAND"
+        android:layout_width="340dp"
+        android:layout_height="47dp"
+        android:fontFamily="@font/audiowide"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:text="Brand"
         android:textAlignment="center"
-        android:textSize="34sp"
+        android:textAllCaps="false"
+        android:textSize="33sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.027" />
 
     <TextView
         android:id="@+id/modelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
+        android:layout_width="337dp"
+        android:layout_height="31dp"
+        android:fontFamily="@font/audiowide"
         android:text="model"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.082" />
 
     <TextView
         android:id="@+id/statusText"

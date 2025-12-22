@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     fun loadWatches(){
 
         try{
-            var f = File(this.filesDir, "watches.bin")
+            var f = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "watches.bin");
             var o = ObjectInputStream(FileInputStream(f));
             try{
                 arrayList = o.readObject() as ArrayList<Watch>;
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun saveWatches(){
-        var f = File(this.filesDir, "watches.bin");
+        var f = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "watches.bin");
         var o = ObjectOutputStream(FileOutputStream(f));
         try{
             o.writeObject(arrayList);
@@ -130,7 +131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun wipeData(){
-        var f = File(this.filesDir, "watches.bin");
+        var f = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "watches.bin");
         var o = ObjectOutputStream(FileOutputStream(f));
         try{
             o.writeObject(ArrayList<Watch>());
@@ -147,13 +148,9 @@ class MainActivity : AppCompatActivity() {
 
     // This will execute as a callback, when an activity sends back a object
     @RequiresApi(Build.VERSION_CODES.O)
-
     private val launcher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        Log.i("DAVIDO-INFO","RESULT -> "+result.resultCode);
-        Log.i("DAVIDO-INFO","LIST -> "+arrayList.toString());
-        Log.i("DAVIDO-INFO","POSITION -> "+watchPos);
         if (result.resultCode == RESULT_OK) {
             val newWatch = result.data?.getSerializableExtra("WATCH")!! as Watch;
             // Log.i("DAVIDO-INFO","MAIN -> "+newWatch.fullInfo());
@@ -179,10 +176,10 @@ class MainActivity : AppCompatActivity() {
     // A method to check it the list is empty, to show a message under the list container
     private fun check4emptyList(){
         if(arrayList.isEmpty()){
-            showStatus("No watches added for now.",Color.GREEN,statusTxt);
+            showStatus("No watches added for now.",Color.WHITE,statusTxt);
         }
         else{
-            statusTxt.visibility = View.INVISIBLE;
+            showStatus("Press and hold a watch to edit it.",Color.WHITE,statusTxt);
         }
     }
     companion object{
