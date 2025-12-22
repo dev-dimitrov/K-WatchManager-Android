@@ -11,8 +11,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="329dp"
-        android:layout_height="80dp"
+        android:layout_width="401dp"
+        android:layout_height="79dp"
         android:fontFamily="@font/audiowide"
         android:scaleX="1"
         android:scaleY="1"
@@ -57,14 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:layout_marginBottom="30dp"
-            android:hint="Movement Type" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/taInput"
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_marginBottom="30dp"
-            android:hint="Theoretic accuracy" />
+            android:hint="Movement Type (Automatic, Quartz...)" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/caliberInput"
@@ -72,6 +65,13 @@
             android:layout_height="39dp"
             android:layout_marginBottom="30dp"
             android:hint="Caliber" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Theoretic accuracy" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/moreInfoInput"
@@ -83,18 +83,6 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/addWatchButton"
-        android:layout_width="265dp"
-        android:layout_height="48dp"
-        android:text="Add Watch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.728" />
-
-    <Button
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,7 +92,19 @@
         app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.728" />
+        app:layout_constraintVertical_bias="0.737" />
+
+    <Button
+        android:id="@+id/addWatchButton"
+        android:layout_width="265dp"
+        android:layout_height="48dp"
+        android:text="Add Watch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737" />
 
     <TextView
         android:id="@+id/statusTxt"
@@ -117,6 +117,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintVertical_bias="0.196" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

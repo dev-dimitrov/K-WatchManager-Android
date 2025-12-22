@@ -109,15 +109,15 @@ class WatchModActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun modifyWatch(): Watch? {
         var w: Watch;
-        var brand = brandI.text.toString();
-        var model = modelI.text.toString();
-        var type = typeI.text.toString();
-        var caliber = caliberI.text.toString();
-        var moreInfo = moreInfoI.text.toString();
-        var theoreticAccuracy = theoreticAccuracyI.text.toString();
+        var brand = brandI.text.toString().trim();
+        var model = modelI.text.toString().trim();
+        var type = typeI.text.toString().trim();
+        var caliber = caliberI.text.toString().trim();
+        var moreInfo = moreInfoI.text.toString().trim();
+        var theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
 
         if(brand.isEmpty() || model.isEmpty()){
-            MainActivity.showStatus("Error. You must specify the brand and model", Color.RED,statusText);
+            MainActivity.showStatus("You must specify the brand and model!", Color.RED,statusText);
             return null;
         }
 

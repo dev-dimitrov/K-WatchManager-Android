@@ -26,7 +26,6 @@ class Watch( // constructor parameters
     var moreInfo: String;
     var lastAdjust = "";
     var log = LinkedHashMap<String,String>();
-    var na = "Not Specified";
 
     init {
         brand = b.uppercase(Locale.getDefault())
@@ -41,6 +40,7 @@ class Watch( // constructor parameters
     override fun toString(): String{
         return brand+" "+model;
     }
+
     fun fullInfo(): String{
         return brand+" "+model+" "+type+" "+caliber+" "+theoreticAccuracy+" "+moreInfo+" "+log.size;
     }
@@ -66,7 +66,7 @@ class Watch( // constructor parameters
 
     companion object{
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+        val na = "N/a";
         fun copy(w: Watch) : Watch{
             var newWatch = Watch(w.brand,w.model,w.type,w.caliber, w.theoreticAccuracy,w.moreInfo);
             newWatch.lastAdjust = w.lastAdjust;

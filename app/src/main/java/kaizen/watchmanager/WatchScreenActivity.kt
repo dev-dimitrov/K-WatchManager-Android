@@ -129,7 +129,7 @@ class WatchScreenActivity : AppCompatActivity() {
     fun drawWatchInfo(){
         brandTxt.text = w.brand;
         modelTxt.text = w.model;
-        watchAtt.text = "Last Adjustment: "+w.lastAdjust+"\nMovement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo+"\nTap HERE to see logs";
+        watchAtt.text = "Last Adjustment: "+(if (w.lastAdjust.isBlank()) Watch.na else w.lastAdjust)+"\nMovement type: "+w.type+"\nCaliber: "+w.caliber+"\nTheoretic accuracy: "+w.theoreticAccuracy+"\nMore information: "+w.moreInfo+"\nTap HERE to see logs";
     }
 
 
