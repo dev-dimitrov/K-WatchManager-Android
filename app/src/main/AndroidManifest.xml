@@ -21,7 +21,8 @@
             android:exported="false" />
         <activity
             android:name=".WatchScreenActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".WatchModificationActivity"
             android:exported="false" />
