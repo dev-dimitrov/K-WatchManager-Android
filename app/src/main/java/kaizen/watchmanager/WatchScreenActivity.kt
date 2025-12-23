@@ -138,6 +138,7 @@ class WatchScreenActivity : AppCompatActivity() {
         var msg = "";
         var status = 0;
         var strDate = "";
+        var color = 0;
         // if there is no input = means that was adjusted now
         if(input.text.toString().isBlank()){
             w.lastAdjust = LocalDateTime.now().format(Watch.formatter); // format to String
@@ -150,7 +151,7 @@ class WatchScreenActivity : AppCompatActivity() {
                 w.lastAdjust = strDate;
             }
             catch(ex: DateTimeParseException){
-                statusTxt.setTextColor(Color.RED);
+                color = Color.RED;
                 msg = "Wrong format for adjust watch...";
                 status = 1;
             }
@@ -159,11 +160,11 @@ class WatchScreenActivity : AppCompatActivity() {
         drawWatchInfo();
         if(status == 0){
             w.logWrite(strDate, "Adjusted.");
-            statusTxt.setTextColor(Color.GREEN);
-            msg = "Successfully adjusted!!";
+            color = Color.GREEN;
+            msg = "Successfully adjusted!";
         }
 
-        MainActivity.showStatus(msg,Color.WHITE,statusTxt);
+        MainActivity.showStatus(msg,color,statusTxt);
         statusTxt.visibility = View.VISIBLE;
     }
 

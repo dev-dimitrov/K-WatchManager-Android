@@ -51,12 +51,11 @@ class MainActivity : AppCompatActivity() {
         }
         statusTxt = findViewById(R.id.mainStatusText);
         statusTxt.visibility = View.INVISIBLE;
-        wipeData();
         loadWatches();
 
         addBtn = findViewById(R.id.addButton);
         list = findViewById(R.id.listView);
-        // Asigning
+        // Asigning an adapter to de arraylist of watches
         adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
 
 
@@ -156,9 +155,9 @@ class MainActivity : AppCompatActivity() {
             // Log.i("DAVIDO-INFO","MAIN -> "+newWatch.fullInfo());
             // This if protects from callback that are coming from the WatchCreationActivity
             if(pressedWatch && watchPos != -1){
-                arrayList.removeAt(watchPos);
+                arrayList.removeAt(watchPos) // Removes the old watch
             }
-
+            // Adds the new modified watch
             arrayList.add(newWatch); // adding the brand new watch or update the one with the new last adjustment
         }
         else if (result.resultCode == RESULT_CANCELED && watchPos != -1) {

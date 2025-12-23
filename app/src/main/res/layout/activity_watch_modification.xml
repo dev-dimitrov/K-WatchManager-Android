@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WatchCreationActivity"
+    tools:layout_editor_absoluteX="10dp"
+    tools:layout_editor_absoluteY="17dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="401dp"
+        android:layout_height="79dp"
+        android:fontFamily="@font/audiowide"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:text="Watch modification"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="353dp"
+        android:layout_height="383dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/brandInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Enter brand (Required)" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/modelInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Enter model (Required)" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tyInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Movement Type (Automatic, Quartz...)" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/caliberInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Caliber" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Theoretic accuracy" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/moreInfoInput"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="30dp"
+            android:hint="More info" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737" />
+
+    <Button
+        android:id="@+id/addWatchButton"
+        android:layout_width="265dp"
+        android:layout_height="48dp"
+        android:text="Modify Watch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.737" />
+
+    <TextView
+        android:id="@+id/statusTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Error. You must especify the brand and model."
+        android:textColor="#E53935"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.196" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="151dp"
+        android:layout_height="48dp"
+        android:text="Clear logs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.802" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

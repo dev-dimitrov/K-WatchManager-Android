@@ -30,12 +30,14 @@ class WatchModActivity : AppCompatActivity() {
     lateinit var cancel: Button;
     lateinit var watch: Watch;
     lateinit var title: TextView;
+    lateinit var clear: Button;
     var firstPressed = true;
+    var firstPressedLogs = true;
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         enableEdgeToEdge();
-        setContentView(R.layout.activity_watch_creation)
+        setContentView(R.layout.activity_watch_modification);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -74,6 +76,18 @@ class WatchModActivity : AppCompatActivity() {
                 finish();
             }
         }
+
+        clear.setOnClickListener{
+            if(firstPressedLogs){
+                MainActivity.showStatus("Press again to delete the logs",Color.RED,statusText);
+                firstPressedLogs = false;
+            }
+            else{
+                watch.clearLog();
+                MainActivity.showStatus("Logs cleared, this cannot be undone",Color.RED, statusText);
+            }
+
+        }
     }
 
     fun setupLayout(){
@@ -101,9 +115,7 @@ class WatchModActivity : AppCompatActivity() {
         cancel = findViewById(R.id.cancelButton);
         statusText.visibility = View.INVISIBLE;
         title = findViewById(R.id.textView);
-        title.text = "Watch modification";
-        addWatch.text = "Modify";
-        cancel.text = "Delete";
+        clear = findViewById(R.id.clearButton);
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

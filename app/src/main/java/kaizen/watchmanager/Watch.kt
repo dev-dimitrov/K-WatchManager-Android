@@ -59,6 +59,11 @@ class Watch( // constructor parameters
         return s; // return all the logs in String.
     }
 
+    fun clearLog(){
+        log = LinkedHashMap<String,String>();
+
+    }
+
     override fun equals(other: Any?): Boolean {
         var o = other as Watch;
         return this.brand.equals(o.brand) && this.model.equals(o.model);
