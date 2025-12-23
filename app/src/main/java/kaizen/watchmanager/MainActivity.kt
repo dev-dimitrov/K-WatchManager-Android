@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
@@ -27,8 +26,6 @@ import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.ArrayList
 import androidx.annotation.RequiresApi;
-import androidx.transition.Visibility
-import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 class MainActivity : AppCompatActivity() {
@@ -37,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     var arrayList = ArrayList<Watch>();
     lateinit var adapter: ArrayAdapter<Watch>;
     lateinit var statusTxt: TextView;
+    lateinit var title: TextView;
     var pressedWatch = false;
     var watchPos = -1;
     @RequiresApi(Build.VERSION_CODES.O)
@@ -50,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         statusTxt = findViewById(R.id.mainStatusText);
+        title = findViewById(R.id.titleText);
         statusTxt.visibility = View.INVISIBLE;
         loadWatches();
 
@@ -59,13 +58,14 @@ class MainActivity : AppCompatActivity() {
         adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
 
 
+
         list.adapter = adapter;
 
         check4emptyList();
 
-        addBtn.setOnClickListener({
+        addBtn.setOnClickListener{
             addWatch();
-        });
+        };
 
         list.setOnItemClickListener{parent, view, position, id ->
             pressedWatch = true;
@@ -84,6 +84,12 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("WATCH",heldWatch as Serializable);
             launcher.launch(intent);
             true // This is to consume the event and not trigger the click listener
+        }
+
+        title.setOnClickListener{
+            var intent = Intent(this, AboutActivity::class.java)
+            watchPos = -1;
+            launcher.launch(intent);
         }
     }
 
