@@ -1,12 +1,9 @@
 import android.os.Build
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import java.io.Serializable
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import java.util.TreeMap
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 class Watch( // constructor parameters
@@ -67,6 +64,10 @@ class Watch( // constructor parameters
     override fun equals(other: Any?): Boolean {
         var o = other as Watch;
         return this.brand.equals(o.brand) && this.model.equals(o.model);
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
     }
 
     companion object{
