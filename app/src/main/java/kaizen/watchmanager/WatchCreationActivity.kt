@@ -17,15 +17,15 @@ import com.google.android.material.textfield.TextInputEditText
 import java.io.Serializable
 
 class WatchCreationActivity : AppCompatActivity() {
-    lateinit var brandI: TextInputEditText;
-    lateinit var modelI: TextInputEditText;
-    lateinit var typeI: TextInputEditText;
-    lateinit var caliberI: TextInputEditText;
-    lateinit var theoreticAccuracyI: TextInputEditText;
-    lateinit var moreInfoI: TextInputEditText;
-    lateinit var addWatch: Button;
-    lateinit var statusText: TextView;
-    lateinit var cancel: Button;
+    private lateinit var brandI: TextInputEditText;
+    private lateinit var modelI: TextInputEditText;
+    private lateinit var typeI: TextInputEditText;
+    private lateinit var caliberI: TextInputEditText;
+    private lateinit var theoreticAccuracyI: TextInputEditText;
+    private lateinit var moreInfoI: TextInputEditText;
+    private lateinit var addWatch: Button;
+    private lateinit var statusText: TextView;
+    private lateinit var cancel: Button;
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,12 +67,12 @@ class WatchCreationActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun createWatch(): Watch? {
         var w: Watch;
-        var brand = brandI.text.toString().trim();
-        var model = modelI.text.toString().trim();
-        var type = typeI.text.toString().trim();
-        var caliber = caliberI.text.toString().trim();
-        var moreInfo = moreInfoI.text.toString().trim();
-        var theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
+        val brand = brandI.text.toString().trim();
+        val model = modelI.text.toString().trim();
+        val type = typeI.text.toString().trim();
+        val caliber = caliberI.text.toString().trim();
+        val moreInfo = moreInfoI.text.toString().trim();
+        val theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
 
         if(brand.isEmpty() || model.isEmpty()){
             MainActivity.showStatus("You must specify the brand and model!", Color.RED,statusText);
@@ -80,7 +80,7 @@ class WatchCreationActivity : AppCompatActivity() {
         }
 
         statusText.visibility = View.INVISIBLE;
-        w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
+        w = Watch(brand,model,type,caliber,theoreticAccuracy,moreInfo);
         MainActivity.showStatus("Watch created successfully!",Color.GREEN,statusText);
         return w;
     }

@@ -121,12 +121,12 @@ class WatchModActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun modifyWatch(): Watch? {
         var w: Watch;
-        var brand = brandI.text.toString().trim();
-        var model = modelI.text.toString().trim();
-        var type = typeI.text.toString().trim();
-        var caliber = caliberI.text.toString().trim();
-        var moreInfo = moreInfoI.text.toString().trim();
-        var theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
+        val brand = brandI.text.toString().trim();
+        val model = modelI.text.toString().trim();
+        val type = typeI.text.toString().trim();
+        val caliber = caliberI.text.toString().trim();
+        val moreInfo = moreInfoI.text.toString().trim();
+        val theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
 
         if(brand.isEmpty() || model.isEmpty()){
             MainActivity.showStatus("You must specify the brand and model!", Color.RED,statusText);
@@ -134,7 +134,7 @@ class WatchModActivity : AppCompatActivity() {
         }
 
         statusText.visibility = View.INVISIBLE;
-        w = Watch(brand,model,type,caliber,moreInfo,theoreticAccuracy);
+        w = Watch(brand,model,type,caliber,theoreticAccuracy,moreInfo);
         w.log = watch.log;
         w.lastAdjust = watch.lastAdjust;
         MainActivity.showStatus("Watch successfully modified!", Color.GREEN,statusText);
