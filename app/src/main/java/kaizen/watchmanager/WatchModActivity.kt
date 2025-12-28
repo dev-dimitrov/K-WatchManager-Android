@@ -96,16 +96,16 @@ class WatchModActivity : AppCompatActivity() {
         modelI.setText(watch.model);
 
         typeI = findViewById(R.id.tyInput);
-        typeI.setText(if (watch.type == "N/a") null else watch.type);
+        typeI.setText(if (watch.type == Watch.na) null else watch.type);
 
         caliberI = findViewById(R.id.caliberInput);
-        caliberI.setText(if (watch.caliber == "N/a") null else watch.caliber);
+        caliberI.setText(if (watch.caliber == Watch.na) null else watch.caliber);
 
         moreInfoI = findViewById(R.id.moreInfoInput);
-        moreInfoI.setText(if (watch.moreInfo == "N/a") null else watch.moreInfo);
+        moreInfoI.setText(if (watch.moreInfo == Watch.na) null else watch.moreInfo);
 
         theoreticAccuracyI = findViewById(R.id.taInput);
-        theoreticAccuracyI.setText(if (watch.theoreticAccuracy == "N/a") null else watch.theoreticAccuracy);
+        theoreticAccuracyI.setText(if (watch.theoreticAccuracy == Watch.na) null else watch.theoreticAccuracy);
 
         addWatch = findViewById(R.id.addWatchButton);
         statusText = findViewById(R.id.statusTxt);
@@ -121,10 +121,10 @@ class WatchModActivity : AppCompatActivity() {
         var w: Watch;
         val brand = brandI.text.toString().trim();
         val model = modelI.text.toString().trim();
-        val type = typeI.text.toString().trim();
-        val caliber = caliberI.text.toString().trim();
-        val moreInfo = moreInfoI.text.toString().trim();
-        val theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
+        val type = if(typeI.text.toString().trim().isEmpty()) Watch.na else typeI.text.toString().trim();
+        val caliber = if(caliberI.text.toString().trim().isEmpty()) Watch.na else caliberI.text.toString().trim();
+        val moreInfo = if(moreInfoI.text.toString().trim().isEmpty()) Watch.na else moreInfoI.text.toString().trim();
+        val theoreticAccuracy = if(theoreticAccuracyI.text.toString().trim().isEmpty()) Watch.na else theoreticAccuracyI.text.toString().trim();
 
         if(brand.isEmpty() || model.isEmpty()){
             MainActivity.showStatus("You must specify the brand and model!", Color.RED,statusText);
