@@ -56,12 +56,10 @@ class WatchModActivity : AppCompatActivity() {
         addWatch.setOnClickListener{
             var w = modifyWatch()!!;
             // Log.i("DAVIDO-INFO",w.fullInfo());
-            if(w != null){
-                var intent = Intent(); // create a new intent
-                intent.putExtra("WATCH",w as Serializable); // assign the new watch created to the key "WATCH"
-                setResult(RESULT_OK, intent); // Set the result with the intent
-                finish(); // Exit this activity
-            }
+            var intent = Intent(); // create a new intent
+            intent.putExtra("WATCH",w as Serializable); // assign the new watch created to the key "WATCH"
+            setResult(RESULT_OK, intent); // Set the result with the intent
+            finish(); // Exit this activity
         }
 
         cancel.setOnClickListener{
@@ -98,16 +96,16 @@ class WatchModActivity : AppCompatActivity() {
         modelI.setText(watch.model);
 
         typeI = findViewById(R.id.tyInput);
-        typeI.setText(watch.type);
+        typeI.setText(if (watch.type == "N/a") null else watch.type);
 
         caliberI = findViewById(R.id.caliberInput);
-        caliberI.setText(watch.caliber);
+        caliberI.setText(if (watch.caliber == "N/a") null else watch.caliber);
 
         moreInfoI = findViewById(R.id.moreInfoInput);
-        moreInfoI.setText(watch.moreInfo);
+        moreInfoI.setText(if (watch.moreInfo == "N/a") null else watch.moreInfo);
 
         theoreticAccuracyI = findViewById(R.id.taInput);
-        theoreticAccuracyI.setText(watch.theoreticAccuracy);
+        theoreticAccuracyI.setText(if (watch.theoreticAccuracy == "N/a") null else watch.theoreticAccuracy);
 
         addWatch = findViewById(R.id.addWatchButton);
         statusText = findViewById(R.id.statusTxt);
