@@ -41,7 +41,6 @@ class WatchCreationActivity : AppCompatActivity() {
         }
         brandI = findViewById(R.id.brandInput);
         modelI = findViewById(R.id.modelInput);
-        typeI = findViewById(R.id.tyInput);
         caliberI = findViewById(R.id.caliberInput);
         moreInfoI = findViewById(R.id.moreInfoInput);
         addWatch = findViewById(R.id.addWatchButton);
@@ -87,7 +86,7 @@ class WatchCreationActivity : AppCompatActivity() {
         var w: Watch;
         val brand = brandI.text.toString().trim();
         val model = modelI.text.toString().trim();
-        val type = typeI.text.toString().trim();
+        val type = if (spinner.selectedItem.toString().equals("Movement type…")) "N/a" else spinner.selectedItem.toString();
         val caliber = caliberI.text.toString().trim();
         val moreInfo = moreInfoI.text.toString().trim();
         val theoreticAccuracy = theoreticAccuracyI.text.toString().trim();

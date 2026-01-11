@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">KWM</string>
     <string-array name="caliber_type">
-        <item>N/a</item>
+        <item>Caliber type…</item>
         <item>Quartz</item>
         <item>Automatic</item>
         <item>Meca-Quartz</item>
