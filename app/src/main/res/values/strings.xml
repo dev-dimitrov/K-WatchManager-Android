@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">KWM</string>
+    <string-array name="caliber_type">
+        <item>N/a</item>
+        <item>Quartz</item>
+        <item>Automatic</item>
+        <item>Meca-Quartz</item>
+        <item>Mechanic</item>
+        <item>Spring Drive</item>
+        <item>Other</item>
+    </string-array>
 </resources>
