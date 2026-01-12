@@ -19,20 +19,20 @@ import androidx.activity.addCallback
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class WatchModActivity : AppCompatActivity() {
-    lateinit var brandI: TextInputEditText;
-    lateinit var modelI: TextInputEditText;
-    lateinit var typeI: TextInputEditText;
-    lateinit var caliberI: TextInputEditText;
-    lateinit var theoreticAccuracyI: TextInputEditText;
-    lateinit var moreInfoI: TextInputEditText;
-    lateinit var addWatch: Button;
-    lateinit var statusText: TextView;
-    lateinit var cancel: Button;
-    lateinit var watch: Watch;
-    lateinit var title: TextView;
-    lateinit var clear: Button;
-    var firstPressed = true;
-    var firstPressedLogs = true;
+    private lateinit var brandI: TextInputEditText;
+    private lateinit var modelI: TextInputEditText;
+    private lateinit var typeI: TextInputEditText;
+    private lateinit var caliberI: TextInputEditText;
+    private lateinit var theoreticAccuracyI: TextInputEditText;
+    private lateinit var moreInfoI: TextInputEditText;
+    private lateinit var addWatch: Button;
+    private lateinit var statusText: TextView;
+    private lateinit var cancel: Button;
+    private lateinit var watch: Watch;
+    private lateinit var title: TextView;
+    private lateinit var clear: Button;
+    private var firstPressed = true;
+    private var firstPressedLogs = true;
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -121,10 +121,10 @@ class WatchModActivity : AppCompatActivity() {
         var w: Watch;
         val brand = brandI.text.toString().trim();
         val model = modelI.text.toString().trim();
-        val type = if(typeI.text.toString().trim().isEmpty()) Watch.na else typeI.text.toString().trim();
-        val caliber = if(caliberI.text.toString().trim().isEmpty()) Watch.na else caliberI.text.toString().trim();
-        val moreInfo = if(moreInfoI.text.toString().trim().isEmpty()) Watch.na else moreInfoI.text.toString().trim();
-        val theoreticAccuracy = if(theoreticAccuracyI.text.toString().trim().isEmpty()) Watch.na else theoreticAccuracyI.text.toString().trim();
+        val type = typeI.text.toString().trim();
+        val caliber = caliberI.text.toString().trim();
+        val moreInfo = moreInfoI.text.toString().trim();
+        val theoreticAccuracy = theoreticAccuracyI.text.toString().trim();
 
         if(brand.isEmpty() || model.isEmpty()){
             MainActivity.showStatus("You must specify the brand and model!", Color.RED,statusText);
