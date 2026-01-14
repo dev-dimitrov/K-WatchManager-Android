@@ -95,7 +95,7 @@ class WatchModActivity : AppCompatActivity() {
         modelI = findViewById(R.id.modelInput);
         modelI.setText(watch.model);
 
-        typeI = findViewById(R.id.caliberInput);
+        typeI = findViewById(R.id.typeInput);
         typeI.setText(if (watch.type == Watch.na) null else watch.type);
 
         caliberI = findViewById(R.id.caliberInput);
